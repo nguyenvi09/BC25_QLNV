@@ -1,4 +1,5 @@
-function NhanVien(){
+function NhanVien(_taiKhoan, _hoTen, _email, _matKhau, _taiKhoan,
+    _luongCB, _chucVu, _gioLam){
     //property
     this.taiKhoan = _taiKhoan;
     this.hoTen = _hoTen;
