@@ -1,5 +1,9 @@
 var currentFormat = new Intl.NumberFormat("vn-VN");
-
+/**
+ * xóa 
+ * cập nhật
+ * tìm nhân viên theo loại và hiển thị
+ */
 function getEle(id){
     return document.getElementById(id);
 };
@@ -52,6 +56,8 @@ function taoBang(arr){
             <td>${nv.chucVu}</td>
             <td>${nv.tongLuong}</td>
             <td>${nv.xepLoai}</td>
+            <td class="btn btn-info" onclick="suaNV('${nv.taiKhoan}')">Sửa</td>
+            <td class="btn btn-danger" onclick="xoaNV('${nv.taiKhoan}')">Xóa</td>
         </tr> `
     };
     getEle("tableDanhSach").innerHTML = content;
@@ -80,3 +86,30 @@ function getLocalStorage() {
       taoBang(dsnv.arr);
     };
 };
+
+/**
+ * để xóa trước hết lấy vị trí 
+ * dùng splice(index, 1)
+ */
+function xoaNV(taiKhoan){
+    dsnv.xoaNV(taiKhoan);
+    taoBang(dsnv.arr);
+    setLocalStorage();
+};
+
+
+/**
+ * sửa - cập nhật
+ * khi bấm sửa -> popup sẽ hiện lên -> ẩn nút thêm người dùng
+ * dom tới nút thêm nhân viên -> thêm class show
+ * -> ẩn nút thêm người dùng
+ * -> dom tới input 
+ * -> xử lý nút cập nhật
+ * -> render lại bảng
+ * -> thiết lặp lại localStorage
+ */
+
+function suaNV(taiKhoan){
+   var myModal =  document.querySelector(".modal.fade");
+   console.log(myModal);
+}
