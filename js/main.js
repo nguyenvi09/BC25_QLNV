@@ -56,7 +56,7 @@ function taoBang(arr){
             <td>${nv.chucVu}</td>
             <td>${nv.tongLuong}</td>
             <td>${nv.xepLoai}</td>
-            <td class="btn btn-info" onclick="suaNV('${nv.taiKhoan}')">Sửa</td>
+            <td data-toggle="modal" data-target="#myModal" class="btn btn-info" onclick="suaNV('${nv.taiKhoan}')">Sửa</td>
             <td class="btn btn-danger" onclick="xoaNV('${nv.taiKhoan}')">Xóa</td>
         </tr> `
     };
@@ -100,16 +100,26 @@ function xoaNV(taiKhoan){
 
 /**
  * sửa - cập nhật
- * khi bấm sửa -> popup sẽ hiện lên -> ẩn nút thêm người dùng
- * dom tới nút thêm nhân viên -> thêm class show
+ * thêm 2 attribute data-toggle="modal" & data-target="#myModal" 
+ * khi bấm sửa -> popup sẽ hiện lên
  * -> ẩn nút thêm người dùng
- * -> dom tới input 
+ * -> dom tới input nhập lại giá trị
  * -> xử lý nút cập nhật
  * -> render lại bảng
  * -> thiết lặp lại localStorage
  */
 
 function suaNV(taiKhoan){
-   var myModal =  document.querySelector(".modal.fade");
-   console.log(myModal);
-}
+    //ẩn nút thêm người dùng
+    getEle("btnThemNV").style.display = "none";
+    //truyền giá trị cũ vào input lại
+    var nhanVien = layThongTinNhanVien();
+    //dom tới nút cập nhật
+    getEle("btnCapNhat").addEventListener("click", function(){
+        // var nhanVien = layThongTinNhanVien();
+        // //render lại bảng
+        // taoBang(dsnv.arr);
+        // setLocalStorage();
+        console.log(123);
+    });
+};
