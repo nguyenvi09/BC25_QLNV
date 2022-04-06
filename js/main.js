@@ -1,9 +1,11 @@
+var currentFormat = new Intl.NumberFormat("vn-VN");
+
 function getEle(id){
     return document.getElementById(id);
 };
-// tạo đối tượng nhanVien từ lớp đối tượng NhanVien
-var nhanVien = new NhanVien();
+
 var dsnv = new DanhSachNhanVien();
+getLocalStorage();
 
 //hàm lấy thông tin nhân viên
 function layThongTinNhanVien(){
@@ -16,15 +18,24 @@ function layThongTinNhanVien(){
     var _chucVu = getEle("chucvu").value;
     var _gioLam = getEle("gioLam").value;
 
+    var nhanVien = new NhanVien(_taiKhoan, _hoTen, _email, _matKhau,
+        _ngayLam, _luongCB, _chucVu, _gioLam);
+
     nhanVien.tinhLuong();
+    nhanVien.xepLoai();
 
     return nhanVien;
-}
+};
 
 //thêm nhân viên
 getEle("btnThemNV").addEventListener("click", function(){
     var nhanVien = layThongTinNhanVien();
-    dsnv.themNV();
+    //push đối tượng vừa tạo vào mảng để quản lý
+    dsnv.themNV(nhanVien);
+    //gọi hàm để in bảng ra giao diện
+    taoBang(dsnv.arr);
+    //lưu dữ liệu LocalStorage
+    setLocalStorage();
 });
 
 //hàm tạo bảng
@@ -32,11 +43,40 @@ function taoBang(arr){
     var content = "";
     for(i = 0; i < arr.length; i++){
         var nv = arr[i];
-        content += 
-        `
+        content += `
         <tr>
             <td>${nv.taiKhoan}</td>
-        </tr>
-        `
+            <td>${nv.hoTen}</td>
+            <td>${nv.email}</td>
+            <td>${nv.ngayLam}</td>
+            <td>${nv.chucVu}</td>
+            <td>${nv.tongLuong}</td>
+            <td>${nv.xepLoai}</td>
+        </tr> `
+    };
+    getEle("tableDanhSach").innerHTML = content;
+};
+
+// hàm lưu dữ liệu LocalStorage
+function setLocalStorage() {
+    //chuyển dsnv.arr từ JSON => String và lưu biến dataString
+    var dataString = JSON.stringify(dsnv.arr);
+  
+    //Luu dssv.arr xuong localStorage
+    localStorage.setItem("DSNV", dataString);
+  };
+
+//hàm tải dữ liệu khi ta load lại trang web
+function getLocalStorage() {
+    //lấy key trong localStorage
+    var dataString = localStorage.getItem("DSNV");
+    //kiểm tra key có đúng không 
+    if (dataString) {
+      //Chuyển từ String => JSON
+      var dataJson = JSON.parse(dataString);
+      //Nạp data vào dsnv.arr
+      dsnv.arr = dataJson;
+      //render tbody
+      taoBang(dsnv.arr);
     };
 };
