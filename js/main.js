@@ -112,14 +112,30 @@ function xoaNV(taiKhoan){
 function suaNV(taiKhoan){
     //ẩn nút thêm người dùng
     getEle("btnThemNV").style.display = "none";
-    //truyền giá trị cũ vào input lại
-    var nhanVien = layThongTinNhanVien();
-    //dom tới nút cập nhật
-    getEle("btnCapNhat").addEventListener("click", function(){
-        // var nhanVien = layThongTinNhanVien();
-        // //render lại bảng
-        // taoBang(dsnv.arr);
-        // setLocalStorage();
-        console.log(123);
-    });
+    //lấy thông tin nhân viên theo index
+    var nhanVien = dsnv.layThongTinNV(taiKhoan);
+    //có được đối tượng tại vị trí rồi thì ta dom lại các thẻ input tương ứng
+    // để truyền giá trị hiện tại vào
+    getEle("tknv").value = nhanVien.taiKhoan;
+    //khóa ô tài khoản lại vì là duy nhất không được thay đổi
+    getEle("tknv").disabled = true;
+    getEle("name").value = nhanVien.hoTen;
+    getEle("email").value = nhanVien.email;
+    getEle("password").value = nhanVien.matKhau;
+    getEle("datepicker").value = nhanVien.ngayLam;
+    getEle("luongCB").value = nhanVien.luongCB;
+    getEle("chucvu").value = nhanVien.chucVu;
+    getEle("gioLam").value = nhanVien.gioLam;
+    
 };
+
+getEle("btnCapNhat").addEventListener("click", function(){
+    //lấy lại thông tin mới gán đối tượng vào biến
+    var nhanVien = layThongTinNhanVien();
+    //gán vào danh sách
+    dsnv.capNhatNV(nhanVien);
+    //render table
+    taoBang(dsnv.arr);
+    //lưu lại localStorage
+    setLocalStorage();
+});

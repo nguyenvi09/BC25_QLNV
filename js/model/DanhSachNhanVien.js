@@ -23,4 +23,23 @@ function DanhSachNhanVien(){
             this.arr.splice(index, 1);
         };
     };
+
+    this.layThongTinNV = function (taiKhoan) {
+        //Tim vi tri
+        var index = this.timViTriNV(taiKhoan);
+    
+        if (index !== -1) {
+          //lấy thông tin nhân viên
+          var nhanVien = this.arr[index];
+          return nhanVien;
+        }
+        return null;
+      };
+
+    this.capNhatNV = function(nhanVien){
+        var index = this.timViTriNV(nhanVien.taiKhoan);
+        if(index !== -1){
+            this.arr[index] = nhanVien;
+        };
+    };
 };
