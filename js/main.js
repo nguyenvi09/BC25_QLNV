@@ -28,8 +28,17 @@ function layThongTinNhanVien(){
     var _chucVu = getEle("chucvu").value;
     var _gioLam = getEle("gioLam").value;
 
-    //kiểm tra dữ liệu số
-    var isValid = validation.kiemTraSo(_taiKhoan, "tbTKNV", "(*)Vui lòng nhập từ 4 -> 6 số");
+    //kiểm tra tài khoản
+    // var isValid = validation.kiemTraSo(_taiKhoan, "tbTKNV", "(*) Vui lòng nhập từ 4 -> 6 số");
+    //kiểm tra họ tên
+    // isValid = validation.kiemTraTen(_hoTen, "tbTen", "(*) Vui lòng nhập họ tên");
+    //kiểm tra email
+    // isValid = validation.kiemTraEmail(_email, "tbEmail", "(*) Vui lòng nhập mail vd: abc@example.com");
+    //kiểm tra mật khẩu
+    // isValid = validation.kiemTraMK(_matKhau, "tbMatKhau", "(*) Mật khẩu từ 6 -> 10 ký tự (1 số, 1 đặc biệt, 1 hoa)");
+    //kiểm tra ngày làm
+    // isValid = validation.kiemTraRong(_ngayLam, "tbNgay", "(*) Vui lòng chọn ngày vào làm");
+
     if(isValid){
         var nhanVien = new NhanVien(_taiKhoan, _hoTen, _email, _matKhau,
             _ngayLam, _luongCB, _chucVu, _gioLam);
@@ -40,6 +49,7 @@ function layThongTinNhanVien(){
         return nhanVien;
     };
 
+    
     return null;
 };
 
