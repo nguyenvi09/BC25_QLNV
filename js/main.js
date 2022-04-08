@@ -9,7 +9,13 @@ function getEle(id){
 };
 
 var dsnv = new DanhSachNhanVien();
+var validation = new Validation();
 getLocalStorage();
+
+// Ẩn nút cập nhật khi bấm Thêm nhân viên
+// getEle("btnThem").addEventListener("click", function(){
+//     getEle("btnCapNhat").style.display = "none";
+// });
 
 //hàm lấy thông tin nhân viên
 function layThongTinNhanVien(){
@@ -22,24 +28,34 @@ function layThongTinNhanVien(){
     var _chucVu = getEle("chucvu").value;
     var _gioLam = getEle("gioLam").value;
 
-    var nhanVien = new NhanVien(_taiKhoan, _hoTen, _email, _matKhau,
-        _ngayLam, _luongCB, _chucVu, _gioLam);
+    //kiểm tra dữ liệu số
+    var isValid = validation.kiemTraSo(_taiKhoan, "tbTKNV", "(*)Vui lòng nhập từ 4 -> 6 số");
+    if(isValid){
+        var nhanVien = new NhanVien(_taiKhoan, _hoTen, _email, _matKhau,
+            _ngayLam, _luongCB, _chucVu, _gioLam);
+    
+        nhanVien.tinhLuong();
+        nhanVien.xepLoai();
+    
+        return nhanVien;
+    };
 
-    nhanVien.tinhLuong();
-    nhanVien.xepLoai();
-
-    return nhanVien;
+    return null;
 };
 
 //thêm nhân viên
 getEle("btnThemNV").addEventListener("click", function(){
+    console.log(1);
     var nhanVien = layThongTinNhanVien();
-    //push đối tượng vừa tạo vào mảng để quản lý
-    dsnv.themNV(nhanVien);
-    //gọi hàm để in bảng ra giao diện
-    taoBang(dsnv.arr);
-    //lưu dữ liệu LocalStorage
-    setLocalStorage();
+    //nếu đối tượng nhanVien !== null thì ta xử lý tiếp
+    if(nhanVien){
+        //push đối tượng vừa tạo vào mảng để quản lý
+        dsnv.themNV(nhanVien);
+        //gọi hàm để in bảng ra giao diện
+        taoBang(dsnv.arr);
+        //lưu dữ liệu LocalStorage
+        setLocalStorage();
+    };
 });
 
 //hàm tạo bảng
