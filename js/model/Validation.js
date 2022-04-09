@@ -14,13 +14,14 @@ function Validation(){
     };
 
     //hàm kiểm tra bắt buộc nhập số từ 4->6
-    this.kiemTraSo = function(value, spanID, mess){
+    this.kiemTraTaiKhoan = function(value, spanID, mess){
         var numbers = /^[0-9]+$/;
         //kiểm tra rỗng trước
         if(this.kiemTraRong(value, spanID, mess)){
             //hàm match sẽ return về 1 mảng
             if(value.match(numbers)){
-                if(value.length >= 4 && value.length <= 6){
+                // bổ sung trim() cắt đầu đuôi cắt whitespace
+                if(value.trim().length >= 4 && value.trim().length <= 6){
                     // dữ liệu hợp lệ 
                     getEle(spanID).style.display = "none";
                     getEle(spanID).innerHTML = "";
@@ -40,6 +41,37 @@ function Validation(){
             getEle(spanID).innerHTML = mess;
             return false;
         };
+    };
+
+    //kiểm tra trùng số tài khoản
+    /**
+     * 1. đặt cờ status = false;
+     * 2. duyệt mảng lấy từng phần tử so sánh 
+     * 3. nếu nhanVien.taiKhoan trùng với value nhập vào
+     * -> cập nhật status = true
+     * -> break
+     * 4. check status true/false
+     */
+    this.kiemTraTrungTaiKhoan = function(value, spanID, mess, arr){
+        var status = false;
+        for(i = 0; i < arr.length; i++){
+            var nhanVien = arr[i]
+            if(nhanVien.taiKhoan === value){
+                status = true;
+                break;
+            };
+        };
+        if(status){
+            //không hợp lệ
+            getEle(spanID).style.display = "block";
+            getEle(spanID).innerHTML = mess;
+            return false;
+            
+        }
+        //hợp lệ
+        getEle(spanID).style.display = "none";
+        getEle(spanID).innerHTML = "";
+        return true;
     };
 
     //kiểm tra tên nhân viên ^[A-Za-z]+$

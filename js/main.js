@@ -24,30 +24,32 @@ function layThongTinNhanVien(){
     var _gioLam = getEle("gioLam").value;
 
     var isValid = true;
+    // có thể dùng toán tử &= để nó so sánh
     //kiểm tra tài khoản
-    var kiemTraSo = validation.kiemTraSo(_taiKhoan, "tbTKNV", "(*) Vui lòng nhập từ 4 -> 6 số");
+    isValid &= validation.kiemTraTaiKhoan(_taiKhoan, "tbTKNV", "(*) Vui lòng nhập từ 4 -> 6 số")
+    && validation.kiemTraTrungTaiKhoan(_taiKhoan, "tbTKNV", "Số tài khoản đã tồn tại", dsnv.arr);
     //kiểm tra họ tên
-    var kiemTraTen = validation.kiemTraTen(_hoTen, "tbTen", "(*) Vui lòng nhập họ tên");
+    isValid &= validation.kiemTraTen(_hoTen, "tbTen", "(*) Vui lòng nhập họ tên");
     //kiểm tra email
-    var kiemTraEmail = validation.kiemTraEmail(_email, "tbEmail", "(*) Vui lòng nhập mail vd: abc@example.com");
+    isValid &= validation.kiemTraEmail(_email, "tbEmail", "(*) Vui lòng nhập mail vd: abc@example.com");
     //kiểm tra mật khẩu
-    var kiemTraMK = validation.kiemTraMK(_matKhau, "tbMatKhau", "(*) Mật khẩu từ 6 -> 10 ký tự (1 số, 1 đặc biệt, 1 hoa)");
+    isValid &= validation.kiemTraMK(_matKhau, "tbMatKhau", "(*) Mật khẩu từ 6 -> 10 ký tự (1 số, 1 đặc biệt, 1 hoa)");
     //kiểm tra ngày làm
-    var kiemTraRong = validation.kiemTraRong(_ngayLam, "tbNgay", "(*) Vui lòng chọn ngày vào làm");
+    isValid &= validation.kiemTraRong(_ngayLam, "tbNgay", "(*) Vui lòng chọn ngày vào làm");
     //kiểm tra lương
-    var kiemTraLuong = validation.kiemTraLuong(_luongCB, "tbLuongCB", "(*) Nhập lương từ 1,000,000 -> 20,000,000");
+    isValid &= validation.kiemTraLuong(_luongCB, "tbLuongCB", "(*) Nhập lương từ 1,000,000 -> 20,000,000");
     //kiểm tra chức vụ
-    var kiemTraChucVu = validation.kiemTraChucVu(_chucVu, "tbChucVu", "(*) Vui lòng chọn chức vụ");
+    isValid &= validation.kiemTraChucVu(_chucVu, "tbChucVu", "(*) Vui lòng chọn chức vụ");
     //kiểm tra giờ làm trong tháng
-    var kiemTraGioLam = validation.kiemTraGioLam(_gioLam, "tbGiolam", "(*) Nhập giờ làm từ 80 -> 200");
+    isValid &= validation.kiemTraGioLam(_gioLam, "tbGiolam", "(*) Nhập giờ làm từ 80 -> 200");
 
-    if(kiemTraSo === true && kiemTraTen === true && kiemTraEmail === true
-        && kiemTraMK === true && kiemTraChucVu === true && kiemTraLuong === true
-        && kiemTraRong === true && kiemTraGioLam === true){
-            isValid = true;
-        }else{
-            isValid = false;
-        };
+    // if(kiemTraSo === true && kiemTraTen === true && kiemTraEmail === true
+    //     && kiemTraMK === true && kiemTraChucVu === true && kiemTraLuong === true
+    //     && kiemTraRong === true && kiemTraGioLam === true){
+    //         isValid = true;
+    //     }else{
+    //         isValid = false;
+    //     };
 
     if(isValid){
         var nhanVien = new NhanVien(_taiKhoan, _hoTen, _email, _matKhau,
