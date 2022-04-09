@@ -175,5 +175,10 @@ getEle("btnCapNhat").addEventListener("click", function(){
 
 /**
  * Tìm Nhân viên theo loại ( xuất sắc, giỏi, khá ....) và hiển thị
- * 
- */
+ */ 
+
+getEle("searchName").addEventListener("keyup", function(){
+    var keyWord = getEle("searchName").value;
+    var mangTimKiem = dsnv.timTheoLoai(keyWord);
+    taoBang(mangTimKiem);
+});

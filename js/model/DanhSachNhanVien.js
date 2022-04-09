@@ -42,4 +42,30 @@ function DanhSachNhanVien(){
             this.arr[index] = nhanVien;
         };
     };
+
+    //tìm theo loại
+    /**
+     * Khi tìm có 2 trường hợp: 
+     * TH1: tìm được !== null
+     * TH2: không tìm được return null
+     * b1: tạo mangTimKiem = [];
+     * b2: duyệt mảng -> lấy ra duoc đối tượng nhanVien = arr[i]
+     * b3: nếu nhanVien.xepLoai trùng với keyWord -> tìm thấy
+     * => thêm nhanVien vô mangTimKiem()
+     * mangTimKiem.push(nhanVien)
+     * b4: trả về mangTimKiem
+     */
+    this.timTheoLoai = function(keyWord){
+        var mangTimKiem = [];
+        for(i = 0; i < this.arr.length; i++){
+            var nhanVien = this.arr[i];
+            //toLowerCase() sẽ chuyển hết về chữ thường
+            //indexOf() sẽ tìm kiếm tương đối
+            // đk khác -1 -> tìm thấy dựa vào giá trị trả về của hàm indexOf
+            if(nhanVien.xepLoai.toLowerCase().indexOf(keyWord.toLowerCase()) !== -1){
+                mangTimKiem.push(nhanVien);
+            };
+        };
+        return mangTimKiem;
+    };
 };
