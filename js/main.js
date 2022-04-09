@@ -1,9 +1,4 @@
 var currentFormat = new Intl.NumberFormat("vn-VN");
-/**
- * xóa 
- * cập nhật
- * tìm nhân viên theo loại và hiển thị
- */
 function getEle(id){
     return document.getElementById(id);
 };
@@ -28,16 +23,31 @@ function layThongTinNhanVien(){
     var _chucVu = getEle("chucvu").value;
     var _gioLam = getEle("gioLam").value;
 
+    var isValid = true;
     //kiểm tra tài khoản
-    // var isValid = validation.kiemTraSo(_taiKhoan, "tbTKNV", "(*) Vui lòng nhập từ 4 -> 6 số");
+    var kiemTraSo = validation.kiemTraSo(_taiKhoan, "tbTKNV", "(*) Vui lòng nhập từ 4 -> 6 số");
     //kiểm tra họ tên
-    // isValid = validation.kiemTraTen(_hoTen, "tbTen", "(*) Vui lòng nhập họ tên");
+    var kiemTraTen = validation.kiemTraTen(_hoTen, "tbTen", "(*) Vui lòng nhập họ tên");
     //kiểm tra email
-    // isValid = validation.kiemTraEmail(_email, "tbEmail", "(*) Vui lòng nhập mail vd: abc@example.com");
+    var kiemTraEmail = validation.kiemTraEmail(_email, "tbEmail", "(*) Vui lòng nhập mail vd: abc@example.com");
     //kiểm tra mật khẩu
-    // isValid = validation.kiemTraMK(_matKhau, "tbMatKhau", "(*) Mật khẩu từ 6 -> 10 ký tự (1 số, 1 đặc biệt, 1 hoa)");
+    var kiemTraMK = validation.kiemTraMK(_matKhau, "tbMatKhau", "(*) Mật khẩu từ 6 -> 10 ký tự (1 số, 1 đặc biệt, 1 hoa)");
     //kiểm tra ngày làm
-    // isValid = validation.kiemTraRong(_ngayLam, "tbNgay", "(*) Vui lòng chọn ngày vào làm");
+    var kiemTraRong = validation.kiemTraRong(_ngayLam, "tbNgay", "(*) Vui lòng chọn ngày vào làm");
+    //kiểm tra lương
+    var kiemTraLuong = validation.kiemTraLuong(_luongCB, "tbLuongCB", "(*) Nhập lương từ 1,000,000 -> 20,000,000");
+    //kiểm tra chức vụ
+    var kiemTraChucVu = validation.kiemTraChucVu(_chucVu, "tbChucVu", "(*) Vui lòng chọn chức vụ");
+    //kiểm tra giờ làm trong tháng
+    var kiemTraGioLam = validation.kiemTraGioLam(_gioLam, "tbGiolam", "(*) Nhập giờ làm từ 80 -> 200");
+
+    if(kiemTraSo === true && kiemTraTen === true && kiemTraEmail === true
+        && kiemTraMK === true && kiemTraChucVu === true && kiemTraLuong === true
+        && kiemTraRong === true && kiemTraGioLam === true){
+            isValid = true;
+        }else{
+            isValid = false;
+        };
 
     if(isValid){
         var nhanVien = new NhanVien(_taiKhoan, _hoTen, _email, _matKhau,
@@ -48,14 +58,11 @@ function layThongTinNhanVien(){
     
         return nhanVien;
     };
-
-    
     return null;
 };
 
 //thêm nhân viên
 getEle("btnThemNV").addEventListener("click", function(){
-    console.log(1);
     var nhanVien = layThongTinNhanVien();
     //nếu đối tượng nhanVien !== null thì ta xử lý tiếp
     if(nhanVien){
@@ -165,3 +172,8 @@ getEle("btnCapNhat").addEventListener("click", function(){
     //lưu lại localStorage
     setLocalStorage();
 });
+
+/**
+ * Tìm Nhân viên theo loại ( xuất sắc, giỏi, khá ....) và hiển thị
+ * 
+ */

@@ -42,10 +42,10 @@ function Validation(){
         };
     };
 
-    //kiểm tra tên nhân viên
+    //kiểm tra tên nhân viên ^[A-Za-z]+$
     this.kiemTraTen = function(value, spanID, mess){
         //sử dụng lớp đối tượng RegExp js kiểm tra
-        var letters = new RegExp("^[A-Za-z]+$");
+        var letters = new RegExp("^[a-zA-Z].*[\s\.]*$");
         if(this.kiemTraRong(value, spanID, mess)){
             if(letters.test(value)){
                 //dl hợp lệ
@@ -104,5 +104,60 @@ function Validation(){
         };
     };
 
-    
+    //kiểm tra lương cơ bản
+    this.kiemTraLuong = function(value, spanID, mess){
+        if(this.kiemTraRong(value, spanID, mess)){
+            if(value >= 1000000 && value <= 20000000){
+                getEle(spanID).innerHTML = "";
+                getEle(spanID).style.display = "none";
+                return true;
+            }else{
+                getEle(spanID).innerHTML = mess;
+                getEle(spanID).style.display = "block";
+                return false;
+            };
+        }else{
+            getEle(spanID).innerHTML = mess;
+            getEle(spanID).style.display = "block";
+            return false;
+        };
+    };
+
+    // kiểm tra chức vụ
+    this.kiemTraChucVu = function(value, spanID, mess){
+        if(this.kiemTraRong(value, spanID, mess)){
+            if(value !== "Chọn chức vụ"){
+                getEle(spanID).innerHTML = "";
+                getEle(spanID).style.display = "none";
+                return true;
+            }else{
+                getEle(spanID).innerHTML = mess;
+                getEle(spanID).style.display = "block";
+                return false;
+            };
+        }else{
+            getEle(spanID).innerHTML = mess;
+            getEle(spanID).style.display = "block";
+            return false;
+        };
+    };
+
+    //kiểm tra số giờ làm trong tháng
+    this.kiemTraGioLam = function(value, spanID, mess){
+        if(this.kiemTraRong(value, spanID, mess)){
+            if(value >= 80 && value <= 200){
+                getEle(spanID).innerHTML = "";
+                getEle(spanID).style.display = "none";
+                return true;
+            }else{
+                getEle(spanID).innerHTML = mess;
+                getEle(spanID).style.display = "block";
+                return false;
+            };
+        }else{
+            getEle(spanID).innerHTML = mess;
+            getEle(spanID).style.display = "block";
+            return false;
+        };
+    };
 };
