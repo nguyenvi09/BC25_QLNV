@@ -5,13 +5,11 @@ function Validation(){
             getEle(spanID).innerHTML = mess;
             getEle(spanID).style.display = "block";
             return false;
+        }else{
+        getEle(spanID).innerHTML = "";
+        getEle(spanID).style.display = "none";
+        return true;};
         };
-        return true;
-        // else{
-        //     getEle(spanID).innerHTML = "";
-        //     getEle(spanID).style.display = "none";
-        //     return true;
-    };
 
     //hàm kiểm tra bắt buộc nhập số từ 4->6
     this.kiemTraTaiKhoan = function(value, spanID, mess){
