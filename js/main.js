@@ -161,7 +161,7 @@ function setLocalStorage() {
   localStorage.setItem("DSNV", dataString);
 }
 
-//hàm tải dữ liệu khi ta load lại trang web
+//hàm tải dữ liệu khi ta tải lại trang web
 function getLocalStorage() {
   //lấy key trong localStorage
   var dataString = localStorage.getItem("DSNV");
@@ -186,6 +186,7 @@ function xoaNV(taiKhoan) {
   setLocalStorage();
 }
 
+//sửa nhân viên
 function suaNV(taiKhoan) {
   //ẩn nút thêm người dùng
   getEle("btnThemNV").style.display = "none";
@@ -207,6 +208,7 @@ function suaNV(taiKhoan) {
   getEle("gioLam").value = nhanVien.gioLam;
 }
 
+//cập nhật nhân viên
 getEle("btnCapNhat").addEventListener("click", function () {
   //lấy lại thông tin mới gán đối tượng vào biến
   var nhanVien = layThongTinNhanVien();
@@ -218,10 +220,7 @@ getEle("btnCapNhat").addEventListener("click", function () {
   setLocalStorage();
 });
 
-/**
- * Tìm Nhân viên theo loại ( xuất sắc, giỏi, khá ....) và hiển thị
- */
-
+//tìm nhân viên theo loại
 getEle("searchName").addEventListener("keyup", function () {
   var keyWord = getEle("searchName").value;
   var mangTimKiem = dsnv.timTheoLoai(keyWord);

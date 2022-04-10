@@ -1,4 +1,4 @@
-
+var currentFormat = new Intl.NumberFormat("vn-VN");
 function NhanVien(_taiKhoan, _hoTen, _email, _matKhau, _ngayLam,
     _luongCB, _chucVu, _gioLam){
     //property
