@@ -10,8 +10,17 @@ getLocalStorage();
 // Ẩn nút cập nhật khi bấm Thêm nhân viên
 getEle("btnThem").addEventListener("click", function(){
   getEle("btnThemNV").style.display = "block";
-    getEle("btnCapNhat").style.display = "none";
-
+  getEle("btnCapNhat").style.display = "none";
+  getEle("tknv").value = "";
+  getEle("tknv").disabled = false;
+  getEle("tbTKNV").style.display = "none";
+  getEle("name").value = "";
+  getEle("email").value = "";
+  getEle("password").value = "";
+  getEle("datepicker").value = "";
+  getEle("luongCB").value = "";
+  getEle("chucvu").value = "Chọn chức vụ";
+  getEle("gioLam").value = "";
 });
 
 //hàm lấy thông tin nhân viên
